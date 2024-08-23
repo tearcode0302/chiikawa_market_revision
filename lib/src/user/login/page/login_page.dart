@@ -1,12 +1,13 @@
-import 'package:chiikawa_market/src/common/components/app_font.dart';
-import 'package:chiikawa_market/src/user/login/controller/login_controller.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../common/components/app_font.dart';
 import '../../../common/components/btn.dart';
+import '../controller/login_controller.dart';
 
 class LoginPage extends GetView<LoginController> {
   const LoginPage({super.key});
-
   Widget _logoView() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -15,20 +16,18 @@ class LoginPage extends GetView<LoginController> {
           width: 99,
           height: 116,
           child: Image.asset(
-            'assets/images/chiikawa.png',
+            'assets/images/logo_simbol.png',
           ),
         ),
         const SizedBox(height: 40),
         const AppFont(
-          '당신 근처의 치이카와 마켓',
+          '당신 근처의 밤톨마켓',
           fontWeight: FontWeight.bold,
           size: 20,
         ),
-        const SizedBox(
-          height: 15,
-        ),
+        const SizedBox(height: 15),
         AppFont(
-          '중고 거래부터 동네 정보까지, \지금 내 동네를 선택하고 시작해보세요',
+          '중고 거래부터 동네 정보까지, \n지금 내 동네를 선택하고 시작해보세요!',
           align: TextAlign.center,
           size: 18,
           color: Colors.white.withOpacity(0.6),

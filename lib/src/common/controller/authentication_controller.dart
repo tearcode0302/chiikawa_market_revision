@@ -1,12 +1,14 @@
-import 'package:chiikawa_market/src/common/enum/authentication_status.dart';
-import 'package:chiikawa_market/src/user/repository/authentication_repository.dart';
-import 'package:chiikawa_market/src/user/repository/user_repository.dart';
+
 import 'package:get/get.dart';
 
 import '../../user/model/user_model.dart';
+import '../../user/repository/authentication_repository.dart';
+import '../../user/repository/user_repository.dart';
+import '../enum/authentication_status.dart';
 
 class AuthenticationController extends GetxController {
-  AuthenticationController(this._authenticationRepository, this._userRepository);
+  AuthenticationController(
+      this._authenticationRepository, this._userRepository);
 
   final AuthenticationRepository _authenticationRepository;
   final UserRepository _userRepository;
@@ -17,6 +19,10 @@ class AuthenticationController extends GetxController {
     _authenticationRepository.user.listen((user) {
       _userStateChangedEvent(user);
     });
+  }
+
+  void reload() {
+    _userStateChangedEvent(userModel.value);
   }
 
   void _userStateChangedEvent(UserModel? user) async {

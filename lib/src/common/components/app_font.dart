@@ -8,7 +8,8 @@ class AppFont extends StatelessWidget {
   final TextAlign? align;
   final FontWeight? fontWeight;
 
-  const AppFont(this.text, {
+  const AppFont(
+    this.text, {
     super.key,
     this.color = Colors.white,
     this.align,

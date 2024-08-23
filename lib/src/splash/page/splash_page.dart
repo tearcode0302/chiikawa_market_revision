@@ -1,12 +1,14 @@
-import 'package:chiikawa_market/src/common/components/app_font.dart';
-import 'package:chiikawa_market/src/common/controller/authentication_controller.dart';
-import 'package:chiikawa_market/src/common/controller/data_load_controller.dart';
-import 'package:chiikawa_market/src/common/enum/authentication_status.dart';
-import 'package:chiikawa_market/src/splash/controller/splash_controller.dart';
-import 'package:chiikawa_market/src/splash/enum/step_type.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../common/components/app_font.dart';
 import '../../common/components/getx_listener.dart';
+import '../../common/controller/authentication_controller.dart';
+import '../../common/controller/data_load_controller.dart';
+import '../../common/enum/authentication_status.dart';
+import '../controller/splash_controller.dart';
+import '../enum/step_type.dart';
 
 class SplashPage extends GetView<SplashController> {
   const SplashPage({super.key});
@@ -16,14 +18,16 @@ class SplashPage extends GetView<SplashController> {
     return Scaffold(
       body: Center(
         child: GetxListener<AuthenticationStatus>(
-          listen: (AuthenticationStatus status) {
+          listen: (AuthenticationStatus status) async {
             switch (status) {
               case AuthenticationStatus.authentication:
                 Get.offNamed('/home');
                 break;
               case AuthenticationStatus.unAuthenticated:
-                var userModel = Get.find<AuthenticationController>().userModel.value;
-                Get.offNamed('/signup/${userModel.uid}');
+                var userModel =
+                    Get.find<AuthenticationController>().userModel.value;
+                await Get.offNamed('/signup/${userModel.uid}');
+                Get.find<AuthenticationController>().reload();
                 break;
               case AuthenticationStatus.unknown:
                 Get.offNamed('/login');
@@ -57,14 +61,11 @@ class SplashPage extends GetView<SplashController> {
                 }
               },
               stream: controller.loadStep,
-              child: const _SplashView()
+              child: const _SplashView(),
             ),
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        controller.loadStep(StepType.authCheck);
-      }),
     );
   }
 }
@@ -85,20 +86,18 @@ class _SplashView extends GetView<SplashController> {
                 width: 99,
                 height: 116,
                 child: Image.asset(
-                  'assets/images/chiikawa.png',
+                  'assets/images/logo_simbol.png',
                 ),
               ),
               const SizedBox(height: 40),
               const AppFont(
-                '당신 근처의 치이카와 마켓',
+                '당신 근처의 밤톨마켓',
                 fontWeight: FontWeight.bold,
                 size: 20,
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 15),
               AppFont(
-                '중고 거래부터 동네 정보까지, \지금 내 동네를 선택하고 시작해보세요',
+                '중고 거래부터 동네 정보까지, \n지금 내 동네를 선택하고 시작해보세요!',
                 align: TextAlign.center,
                 size: 18,
                 color: Colors.white.withOpacity(0.6),
@@ -111,17 +110,16 @@ class _SplashView extends GetView<SplashController> {
           child: Column(
             children: [
               Obx(
-                  () {
-                    return Text(
-                      '${controller.loadStep.value.name}중입니다.',
-                      style: const TextStyle(color: Colors.white),
-                    );
-                  }
+                () {
+                  return Text(
+                    '${controller.loadStep.value.name}중 입니다.',
+                    style: const TextStyle(color: Colors.white),
+                  );
+                },
               ),
               const SizedBox(height: 20),
               const CircularProgressIndicator(
-                strokeWidth: 1, color: Colors.white,
-              )
+                  strokeWidth: 1, color: Colors.white)
             ],
           ),
         )

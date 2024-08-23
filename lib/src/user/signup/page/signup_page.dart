@@ -1,6 +1,6 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 
 import '../../../common/components/app_font.dart';
 import '../../../common/components/btn.dart';
@@ -25,7 +25,7 @@ class SignupPage extends GetWidget<SignupController> {
             ),
             const SizedBox(height: 35),
             Obx(
-                  () => TextField(
+              () => TextField(
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   hintText: '닉네임',
@@ -49,7 +49,7 @@ class SignupPage extends GetWidget<SignupController> {
             horizontal: 25,
             vertical: 20 + MediaQuery.of(context).padding.bottom),
         child: Obx(
-              () => Btn(
+          () => Btn(
             onTap: () async {
               if (!controller.isPossibleUseNickName.value) return;
               var result = await controller.signup();

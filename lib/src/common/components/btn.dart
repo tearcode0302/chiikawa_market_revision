@@ -1,4 +1,3 @@
-import 'package:chiikawa_market/src/common/components/app_font.dart';
 import 'package:flutter/material.dart';
 
 class Btn extends StatelessWidget {
@@ -6,12 +5,11 @@ class Btn extends StatelessWidget {
   final Function() onTap;
   final EdgeInsets padding;
   final Color color;
-
   const Btn({
     super.key,
     required this.child,
     required this.onTap,
-    this.color = Colors.pink,
+    this.color = const Color(0xffED7738),
     this.padding = const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
   });
 
